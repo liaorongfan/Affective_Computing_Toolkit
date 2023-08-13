@@ -6,9 +6,27 @@ from pathlib import Path
 import numpy as np
 
 
-def audio_extract_ffmpeg(video_file, save_to):
+def audio_extract_ffmpeg(video_file: str, save_to: str) -> None:
     """
     Extract audio from video using ffmpeg
+
+    The audio is saved as a wav file with 44100 Hz sampling rate
+    and 320 kbps bit-rate by default.
+
+    FFmpeg is required to be installed.
+        $ sudo apt install ffmpeg
+    The command used:
+        -i: input file
+        -ab: audio bit-rate
+        -ac: audio channels
+        -ar: audio sampling rate
+        -vn: disable video recording
+
+    Args:
+        video_file (str): path to video file
+        save_to (str): path to save audio file
+    Returns:
+         None
     """
     os.makedirs(os.path.dirname(save_to), exist_ok=True)
     cmd = f"ffmpeg -i '{video_file}' -ab 320k -ac 2 -ar 44100 -vn '{save_to}'"
